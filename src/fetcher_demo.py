@@ -26,21 +26,29 @@ def telecharger(session, url):
 
 html = telecharger(session, "https://tg.coinafrique.com/search?sort_by=price_desc")
 soup = BeautifulSoup(html, "lxml")
-annonces = soup.find_all(class_ = "card")
-print(annonces[0].get_text())
+annonces = soup.find_all(class_ ="card ad__card round small hoverable top undefined")
+list_annonces = []
+for a in annonces:
+    element1 = a.find("p", class_="ad__card-description")
+    element2 = a.find("p", class_="ad__card-price")
+    element3 = a.find("img", class_="ad__card-img")
+    element4 = a.find('p', class_="ad__card-location")
+    if True:
+        title = element1.get_text(strip=True)
+        price = element2.get_text(strip=True)
+        img = element3["src"]
+        location=element4.get_text(strip=True)
+        list_annonces.append({"title":title,
+        "price":price,
+        "location":location,
+        "img":img})
+    else:
+        print("element non trouvé")
+    
+print(list_annonces[1])
 
-
-
-"""with open('coinafrique.txt', 'a') as f:
-    for prod, price in zip(products[:10], prices[:10]):
-        f.write(f"Produit : {prod} | Prix : {price}\n")
-"""
-"""for img_url in soup.find_all("img", class_ = "ad__card-img",src=True):
-    url = img_url["src"]
-    images.append(url)
-images = images[:10]
-for i in range(len(images)):
-    response = session.get((images[i]))
-    with open(f"image{i}.jpg", "wb") as f:
-        f.write(response.content)
-    print("téléchargement éffectué")"""
+annonce1 = list_annonces[0]
+image = annonce1["img"]
+reponse = session.get(image)
+with open("images/img1.jpg", "wb") as f:
+    f.write(reponse.content)
