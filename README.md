@@ -166,6 +166,4 @@ These projects are intended strictly for educational and experimentation purpose
 
 **Moubarak Djato**
 
-Python Developer focused on web scraping, data processing, and AI applications.
-
 * **GitHub:** [@Mob73](https://github.com/Mob73)
